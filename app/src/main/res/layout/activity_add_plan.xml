@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+
+    <Spinner
+        android:id="@+id/spinner_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+
+
     <TextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -15,6 +24,7 @@
         android:id="@+id/plan_content_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:lines="8"
         android:hint="填写内容..."
         />
 
@@ -40,6 +50,13 @@
             android:text="2016年1月10日" />
 
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/add_plan_ok_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="创建" />
 
 
 </LinearLayout>
