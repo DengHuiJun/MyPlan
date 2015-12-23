@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -11,6 +13,9 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
     private FloatingActionButton mAddFab;
+    private RecyclerView mPlanListRv;
+
+    private static final int REQ_CODE_ADD_PLAN = 0x1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,14 +24,25 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mAddFab = (FloatingActionButton) findViewById(R.id.fab);
+        findView();
+        initViewData();
+
         mAddFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddPlanActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQ_CODE_ADD_PLAN);
             }
         });
+    }
+
+    private void findView() {
+        mPlanListRv = (RecyclerView) findViewById(R.id.plan_list_rv);
+        mAddFab = (FloatingActionButton) findViewById(R.id.fab);
+    }
+
+    private void initViewData() {
+        mPlanListRv.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -49,5 +65,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQ_CODE_ADD_PLAN && resultCode == RESULT_OK) {
+
+        }
     }
 }

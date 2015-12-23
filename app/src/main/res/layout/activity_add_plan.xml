@@ -5,27 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-
-    <Spinner
-        android:id="@+id/spinner_type"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-    </Spinner>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="计划类型" />
 
+        <Spinner
+            android:id="@+id/plan_type_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </Spinner>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
         android:text="计划内容:" />
 
     <EditText
         android:id="@+id/plan_content_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="8"
-        android:hint="填写内容..."
+        android:lines="6"
+        android:gravity="top|left"
+        android:hint="..."
         />
 
     <LinearLayout
@@ -47,16 +58,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="2016年1月10日" />
+            android:text="2016-1-10" />
 
     </LinearLayout>
-
 
     <Button
         android:id="@+id/add_plan_ok_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="创建" />
-
 
 </LinearLayout>

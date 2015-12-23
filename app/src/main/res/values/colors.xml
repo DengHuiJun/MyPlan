@@ -3,4 +3,19 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- CB1 正文底色 -->
+    <color name="color_bg_cb1">#ffffff</color>
+
+    <!-- CB2 页面背景色 -->
+    <color name="color_bg_cb2">#f8f8f8</color>
+
+    <!-- CB3 二级底栏色 -->
+    <color name="color_bg_cb3">#eeeeee</color>
+
+    <!-- CL4 通用line分割线 -->
+    <color name="color_line_cl4">#e4e4e4</color>
+
+    <!-- CL5 二级栏分界线 -->
+    <color name="color_line_cl5">#dfdfdf</color>
 </resources>

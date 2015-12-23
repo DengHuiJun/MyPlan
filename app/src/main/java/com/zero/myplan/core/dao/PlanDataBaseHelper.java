@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class PlanDataBaseHelper extends SQLiteOpenHelper {
 
-
     private static final String DB_NAME = "MyPlan";
 
     private static final String CREATE_PLAN_TABLE = "create table t_plan("
@@ -18,9 +17,8 @@ public class PlanDataBaseHelper extends SQLiteOpenHelper {
             + "lastUpdateTime long,"
             + "doneTime long,"
             + "type integer not null,"
-            + "content varchar(100)"
+            + "content varchar(100),"
             + "hasDone integer default 0)";
-
 
     private static  int version = 1;
 

@@ -17,15 +17,14 @@ public class PlanDao {
 
     private PlanDataBaseHelper mDBHelper;
 
-
     public PlanDao(Context context){
         mDBHelper = new PlanDataBaseHelper(context);
     }
 
-    public void insertPlan(String createdTime, String lastUpateTime, String doneTime, String type, String content, String hasDone){
+    public void insertPlan(String createdTime, String lastUpateTime, String doneTime, String type, String content){
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
-        String sql = "insert into t_plan(createdTime, lastUpdateTime, doneTime, type, content, hasDone) values (? ,? ,? ,? ,? ,?)";
-        db.execSQL(sql, new String[]{createdTime, lastUpateTime, doneTime, type, content, hasDone});
+        String sql = "insert into t_plan(createdTime, lastUpdateTime, doneTime, type, content) values (? ,? ,? ,? ,?)";
+        db.execSQL(sql, new String[]{createdTime, lastUpateTime, doneTime, type, content});
         db.close();
     }
 
@@ -67,6 +66,5 @@ public class PlanDao {
         db.close();
         return list;
     }
-
 
 }
