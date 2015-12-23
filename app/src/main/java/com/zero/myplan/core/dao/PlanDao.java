@@ -44,7 +44,7 @@ public class PlanDao {
 
     }
 
-    public List<PlanM> getAllNotes(){
+    public List<PlanM> getAllPlans(){
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
         List<PlanM> list = new ArrayList<>();
         String sql = "select * from t_plan";
@@ -52,10 +52,10 @@ public class PlanDao {
         if(cursor.moveToFirst()){
             do {
                 PlanM plan = new PlanM();
-                plan.setId(cursor.getLong(cursor.getColumnIndex(PlanT.ID)));
+                plan.setId(cursor.getInt(cursor.getColumnIndex(PlanT.ID)));
                 plan.setCreatedTime(cursor.getLong(cursor.getColumnIndex(PlanT.CREATE_TIME)));
                 plan.setLastUpateTime(cursor.getLong(cursor.getColumnIndex(PlanT.LAST_UPDATE_TIME)));
-                plan.setDoneTime(cursor.getLong(cursor.getColumnIndex(PlanT.DONE_TIME)));
+                plan.setDoneTime(cursor.getString(cursor.getColumnIndex(PlanT.DONE_TIME)));
                 plan.setContent(cursor.getString(cursor.getColumnIndex(PlanT.CONTENT)));
                 plan.setType(cursor.getInt(cursor.getColumnIndex(PlanT.TYPE)));
                 plan.setHasDone(cursor.getInt(cursor.getColumnIndex(PlanT.HAS_DONE)));

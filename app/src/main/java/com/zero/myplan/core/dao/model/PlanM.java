@@ -14,7 +14,7 @@ public class PlanM {
     private long id;
     private long createdTime;
     private long lastUpateTime;
-    private long doneTime;
+    private String doneTime;
     private int type;
     private String content;
     private boolean hasDone;
@@ -43,16 +43,22 @@ public class PlanM {
         this.lastUpateTime = lastUpateTime;
     }
 
-    public long getDoneTime() {
+    public String getDoneTime() {
         return doneTime;
     }
 
-    public void setDoneTime(long doneTime) {
+    public void setDoneTime(String doneTime) {
         this.doneTime = doneTime;
     }
 
-    public int getType() {
-        return type;
+    public String getType() {
+        switch (type) {
+            case TYPE_READ:
+                return "阅读";
+            case TYPE_TRAVEL:
+                return "旅游";
+        }
+        return "";
     }
 
     public void setType(int type) {

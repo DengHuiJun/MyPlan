@@ -35,10 +35,10 @@ public class AddPlanActivity extends AppCompatActivity implements View.OnClickLi
     private ArrayAdapter mTypeAdapter;
 
     private int mPlanType;
-    private String mDoneTime = "0"; // 天数
+    private String mDoneTime; // 完成的那个日期
     private String mContentStr;
 
-    private Calendar mCalendr;
+    private Calendar mCalendar;
 
     private int mYear;
     private int mMonth;
@@ -66,8 +66,9 @@ public class AddPlanActivity extends AppCompatActivity implements View.OnClickLi
         mTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPlanTypeSpinner.setAdapter(mTypeAdapter);
 
-        mCalendr = Calendar.getInstance(Locale.CHINA);
-        mPlanDoneTimeTv.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(System.currentTimeMillis()));
+        mCalendar = Calendar.getInstance(Locale.CHINA);
+        mDoneTime = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(System.currentTimeMillis());
+        mPlanDoneTimeTv.setText(mDoneTime);
     }
 
     private void setListener() {
@@ -98,14 +99,13 @@ public class AddPlanActivity extends AppCompatActivity implements View.OnClickLi
                 showTimePickDialog();
                 break;
         }
-
     }
 
     private void showTimePickDialog(){
-        mCalendr.setTime(new Date());
-        mYear = mCalendr.get(Calendar.YEAR);
-        mMonth = mCalendr.get(Calendar.MONTH);
-        mDay = mCalendr.get(Calendar.DAY_OF_MONTH);
+        mCalendar.setTime(new Date());
+        mYear = mCalendar.get(Calendar.YEAR);
+        mMonth = mCalendar.get(Calendar.MONTH);
+        mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog dlg = new DatePickerDialog(this, this, mYear, mMonth, mDay);
         dlg.show();
     }
@@ -121,8 +121,8 @@ public class AddPlanActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        mDoneTime = Utils.getDaysByTwoDate(mYear, mMonth+1, mDay, year, monthOfYear+1, dayOfMonth) + "";
-        mPlanDoneTimeTv.setText(year+ "-" + (monthOfYear+1) + "-" + dayOfMonth);
+        mDoneTime = year+ "-" + (monthOfYear+1) + "-" + dayOfMonth;
+        mPlanDoneTimeTv.setText(mDoneTime);
     }
 
     class AddPlanTask extends AsyncTask<Void, Void, Void> {
@@ -130,10 +130,9 @@ public class AddPlanActivity extends AppCompatActivity implements View.OnClickLi
         @Override
         protected Void doInBackground(Void... params) {
             String createTime = System.currentTimeMillis() + "";
-            String lastUpdateTime = createTime;
 
             PlanDao dao = new PlanDao(getApplicationContext());
-            dao.insertPlan(createTime, lastUpdateTime, mDoneTime, mPlanType + "", mContentStr);
+            dao.insertPlan(createTime, createTime, mDoneTime, mPlanType + "", mContentStr);
             return null;
         }
 

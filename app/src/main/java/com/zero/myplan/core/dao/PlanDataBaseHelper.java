@@ -9,13 +9,13 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class PlanDataBaseHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "MyPlan";
+    private static final String DB_NAME = "MyPlan.db";
 
     private static final String CREATE_PLAN_TABLE = "create table t_plan("
             + "planID integer primary key autoincrement not null,"
             + "createdTime long,"
             + "lastUpdateTime long,"
-            + "doneTime long,"
+            + "doneTime varchar(12),"
             + "type integer not null,"
             + "content varchar(100),"
             + "hasDone integer default 0)";

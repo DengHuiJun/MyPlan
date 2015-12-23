@@ -1,6 +1,7 @@
 package com.zero.myplan;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +12,19 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.zero.myplan.core.dao.PlanDao;
+import com.zero.myplan.core.dao.model.PlanM;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+
     private FloatingActionButton mAddFab;
     private RecyclerView mPlanListRv;
+    private PlanListAdapter mAdapter;
+    private List<PlanM> mPlanList;
 
     private static final int REQ_CODE_ADD_PLAN = 0x1;
 
@@ -26,14 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         findView();
         initViewData();
-
-        mAddFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddPlanActivity.class);
-                startActivityForResult(intent, REQ_CODE_ADD_PLAN);
-            }
-        });
+        setListener();
+        executeLoadDateTask();
     }
 
     private void findView() {
@@ -42,7 +47,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViewData() {
+        mPlanList = new ArrayList<>();
         mPlanListRv.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new PlanListAdapter(this, mPlanList);
+        mPlanListRv.setAdapter(mAdapter);
+    }
+
+    private void setListener() {
+
+        mAddFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddPlanActivity.class);
+                startActivityForResult(intent, REQ_CODE_ADD_PLAN);
+            }
+        });
     }
 
     @Override
@@ -70,7 +89,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQ_CODE_ADD_PLAN && resultCode == RESULT_OK) {
+            executeLoadDateTask();
+        }
+    }
 
+    private void executeLoadDateTask() {
+        new LoadDataTask().execute();
+    }
+
+    class LoadDataTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            PlanDao dao = new PlanDao(getApplicationContext());
+            mPlanList = dao.getAllPlans();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            mAdapter.setList(mPlanList);
         }
     }
 }
