@@ -15,7 +15,7 @@ public class PlanDataBaseHelper extends SQLiteOpenHelper {
             + "planID integer primary key autoincrement not null,"
             + "createdTime long,"
             + "lastUpdateTime long,"
-            + "doneTime varchar(12),"
+            + "doneTime long,"
             + "type integer not null,"
             + "content varchar(100),"
             + "hasDone integer default 0)";

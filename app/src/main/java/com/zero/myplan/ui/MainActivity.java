@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.zero.myplan.R;
 import com.zero.myplan.core.dao.PlanDao;
-import com.zero.myplan.core.dao.model.PlanM;
+import com.zero.myplan.core.model.PlanM;
 
 import java.util.ArrayList;
 import java.util.List;

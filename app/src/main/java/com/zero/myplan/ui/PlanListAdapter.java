@@ -9,11 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zero.myplan.R;
-import com.zero.myplan.core.dao.model.PlanM;
+import com.zero.myplan.core.model.PlanM;
+import com.zero.myplan.utils.DateUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by zero on 15-12-23.
@@ -36,12 +35,11 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.PlanVi
 
     @Override
     public void onBindViewHolder(PlanViewHolder holder, int position) {
-        String dateNow = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(System.currentTimeMillis());
         PlanM item = mList.get(position);
         holder.typeTv.setText(item.getType());
-        holder.dateTv.setText(item.getDoneTime());
+        holder.dateTv.setText(DateUtils.getDateByMillis(item.getDoneTime()));
         holder.contentTv.setText(item.getContent());
-//        holder.daysTv.setText(Utils.getDaysByTwoDate(dateNow, item.getDoneTime()));
+        holder.daysTv.setText(DateUtils.getDaysByTwoDate(System.currentTimeMillis(), item.getDoneTime())+ "");
     }
 
     @Override

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.zero.myplan.core.dao.model.PlanM;
-import com.zero.myplan.core.dao.table.PlanT;
+import com.zero.myplan.core.model.PlanM;
+import com.zero.myplan.core.table.PlanT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class PlanDao {
                 plan.setId(cursor.getInt(cursor.getColumnIndex(PlanT.ID)));
                 plan.setCreatedTime(cursor.getLong(cursor.getColumnIndex(PlanT.CREATE_TIME)));
                 plan.setLastUpateTime(cursor.getLong(cursor.getColumnIndex(PlanT.LAST_UPDATE_TIME)));
-                plan.setDoneTime(cursor.getString(cursor.getColumnIndex(PlanT.DONE_TIME)));
+                plan.setDoneTime(cursor.getLong(cursor.getColumnIndex(PlanT.DONE_TIME)));
                 plan.setContent(cursor.getString(cursor.getColumnIndex(PlanT.CONTENT)));
                 plan.setType(cursor.getInt(cursor.getColumnIndex(PlanT.TYPE)));
                 plan.setHasDone(cursor.getInt(cursor.getColumnIndex(PlanT.HAS_DONE)));

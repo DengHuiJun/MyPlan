@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.zero.myplan.R;
 import com.zero.myplan.core.dao.PlanDao;
+import com.zero.myplan.utils.DateUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -36,7 +36,7 @@ public class AddPlanActivity extends AppCompatActivity implements View.OnClickLi
     private ArrayAdapter mTypeAdapter;
 
     private int mPlanType;
-    private String mDoneTime; // 完成的那个日期
+    private long mDoneTime; // 完成的那个日期
     private String mContentStr;
 
     private Calendar mCalendar;
@@ -68,8 +68,8 @@ public class AddPlanActivity extends AppCompatActivity implements View.OnClickLi
         mPlanTypeSpinner.setAdapter(mTypeAdapter);
 
         mCalendar = Calendar.getInstance(Locale.CHINA);
-        mDoneTime = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(System.currentTimeMillis());
-        mPlanDoneTimeTv.setText(mDoneTime);
+        mDoneTime = System.currentTimeMillis();
+        mPlanDoneTimeTv.setText(DateUtils.getDateByMillis(mDoneTime));
     }
 
     private void setListener() {
@@ -122,8 +122,12 @@ public class AddPlanActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        mDoneTime = year+ "-" + (monthOfYear+1) + "-" + dayOfMonth;
-        mPlanDoneTimeTv.setText(mDoneTime);
+        mYear = year;
+        mMonth = monthOfYear;
+        mDay = dayOfMonth;
+
+        mDoneTime = DateUtils.getDate(year, monthOfYear+1, dayOfMonth).getTime();
+        mPlanDoneTimeTv.setText(DateUtils.getDateByMillis(mDoneTime));
     }
 
     class AddPlanTask extends AsyncTask<Void, Void, Void> {
@@ -133,7 +137,7 @@ public class AddPlanActivity extends AppCompatActivity implements View.OnClickLi
             String createTime = System.currentTimeMillis() + "";
 
             PlanDao dao = new PlanDao(getApplicationContext());
-            dao.insertPlan(createTime, createTime, mDoneTime, mPlanType + "", mContentStr);
+            dao.insertPlan(createTime, createTime, mDoneTime + "", mPlanType + "", mContentStr);
             return null;
         }
 

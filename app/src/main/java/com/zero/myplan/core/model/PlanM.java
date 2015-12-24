@@ -14,7 +14,7 @@ public class PlanM {
     private long id;
     private long createdTime;
     private long lastUpateTime;
-    private String doneTime;
+    private long doneTime;
     private int type;
     private String content;
     private boolean hasDone;
@@ -43,11 +43,11 @@ public class PlanM {
         this.lastUpateTime = lastUpateTime;
     }
 
-    public String getDoneTime() {
+    public long getDoneTime() {
         return doneTime;
     }
 
-    public void setDoneTime(String doneTime) {
+    public void setDoneTime(long doneTime) {
         this.doneTime = doneTime;
     }
 
