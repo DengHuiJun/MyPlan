@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zero.myplan.R;
+import com.zero.myplan.core.dao.PlanDao;
 import com.zero.myplan.core.model.PlanM;
 import com.zero.myplan.utils.DateUtils;
 
@@ -22,10 +23,20 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.PlanVi
     private Context mContext;
     private List<PlanM> mList;
 
+    private OnItemClickListener mOnItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
     public PlanListAdapter(Context context, List<PlanM> list) {
         mContext = context;
         mList = list;
         mLayoutInflater = LayoutInflater.from(context);
+    }
+
+    public void setOnItemClickLitener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -34,12 +45,19 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.PlanVi
     }
 
     @Override
-    public void onBindViewHolder(PlanViewHolder holder, int position) {
+    public void onBindViewHolder(PlanViewHolder holder, final int position) {
+
         PlanM item = mList.get(position);
         holder.typeTv.setText(item.getType());
         holder.dateTv.setText(DateUtils.getDateByMillis(item.getDoneTime()));
         holder.contentTv.setText(item.getContent());
         holder.daysTv.setText(DateUtils.getDaysByTwoDate(System.currentTimeMillis(), item.getDoneTime())+ "");
+        holder.viewLy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnItemClickListener.onItemClick(view, position);
+            }
+        });
     }
 
     @Override
@@ -52,17 +70,24 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanListAdapter.PlanVi
         notifyDataSetChanged();
     }
 
+    public void removeData(int position) {
+        mList.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public static class PlanViewHolder extends RecyclerView.ViewHolder {
         TextView typeTv;
         TextView contentTv;
         TextView dateTv;
         TextView daysTv;
         ImageView nodeIv;
+        View viewLy;
 
 
         public PlanViewHolder(View itemView) {
             super(itemView);
 
+            viewLy = itemView.findViewById(R.id.plan_item_ly);
             typeTv = (TextView) itemView.findViewById(R.id.plan_item_type_tv);
             contentTv = (TextView) itemView.findViewById(R.id.plan_item_content_tv);
             dateTv = (TextView) itemView.findViewById(R.id.plan_item_date_tv);

@@ -1,10 +1,13 @@
 package com.zero.myplan.ui;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,17 +18,21 @@ import android.view.MenuItem;
 import com.zero.myplan.R;
 import com.zero.myplan.core.dao.PlanDao;
 import com.zero.myplan.core.model.PlanM;
+import com.zero.myplan.dialog.CommonDialogFragment;
+import com.zero.myplan.view.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PlanListAdapter.OnItemClickListener,
+        CommonDialogFragment.CommonDialogListener{
     private static final String TAG = "MainActivity";
 
     private FloatingActionButton mAddFab;
     private RecyclerView mPlanListRv;
     private PlanListAdapter mAdapter;
     private List<PlanM> mPlanList;
+    private int mClickPosition;
 
     private static final int REQ_CODE_ADD_PLAN = 0x1;
 
@@ -52,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         mPlanListRv.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new PlanListAdapter(this, mPlanList);
         mPlanListRv.setAdapter(mAdapter);
+        mPlanListRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        mPlanListRv.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void setListener() {
@@ -63,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQ_CODE_ADD_PLAN);
             }
         });
+
+        mAdapter.setOnItemClickLitener(this);
     }
 
     @Override
@@ -98,6 +109,32 @@ public class MainActivity extends AppCompatActivity {
         new LoadDataTask().execute();
     }
 
+    private void executeDeleteDataTask(int id) {
+        new DeleteDataTask().execute(id);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        mClickPosition = position;
+        String msg = "亲，确定删除[" + mPlanList.get(position).getContent() + "]吗？";
+        CommonDialogFragment dialog =  new CommonDialogFragment();
+        Bundle args = new Bundle();
+        args.putString(CommonDialogFragment.KEY_MESSAGE, msg);
+        dialog.setArguments(args);
+        dialog.show(getFragmentManager(), TAG);
+
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        executeDeleteDataTask(mClickPosition);
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
+    }
+
     class LoadDataTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -110,6 +147,23 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             mAdapter.setList(mPlanList);
+        }
+    }
+
+    class DeleteDataTask extends AsyncTask<Integer, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            int id = params[0];
+            PlanDao dao = new PlanDao(getApplicationContext());
+            dao.deletePlan(mPlanList.get(id).getId());
+            return id;
+        }
+
+        @Override
+        protected void onPostExecute(Integer id) {
+            mAdapter.removeData(id);
+            Snackbar.make(mAddFab, "删除成功！", Snackbar.LENGTH_SHORT).show();
         }
     }
 }

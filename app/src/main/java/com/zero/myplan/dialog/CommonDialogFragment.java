@@ -6,19 +6,14 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 
 /**
  * Created by zero on 15-12-24.
  */
 public class CommonDialogFragment extends DialogFragment{
     public static final String KEY_MESSAGE = "message";
-    public static final String KEY_POSITIVE_BTN = "positiveBtn";
-    public static final String KEY_NEGATIVE_BTN = "negativeBtn";
 
     private String mMessage = "not init";
-    private String mPositiveBtnStr = "not init";
-    private String mNegativeBtnStr = "not init";
 
     public interface CommonDialogListener {
         void onDialogPositiveClick(DialogFragment dialog);
@@ -46,19 +41,15 @@ public class CommonDialogFragment extends DialogFragment{
         // Use the Builder class for convenient dialog construction
         Bundle args = getArguments();
         mMessage = args.getString(KEY_MESSAGE);
-        mPositiveBtnStr = args.getString(KEY_POSITIVE_BTN);
-        mNegativeBtnStr = args.getString(KEY_NEGATIVE_BTN);
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(mMessage)
-                .setPositiveButton(mPositiveBtnStr, new DialogInterface.OnClickListener() {
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         mListener.onDialogPositiveClick(CommonDialogFragment.this);
                     }
                 })
-                .setNegativeButton(mNegativeBtnStr, new DialogInterface.OnClickListener() {
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         mListener.onDialogNegativeClick(CommonDialogFragment.this);
                     }

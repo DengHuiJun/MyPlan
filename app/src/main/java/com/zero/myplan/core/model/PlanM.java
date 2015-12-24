@@ -11,7 +11,7 @@ public class PlanM {
     // 旅游
     public static final int TYPE_TRAVEL = 1;
 
-    private long id;
+    private int id;
     private long createdTime;
     private long lastUpateTime;
     private long doneTime;
@@ -19,11 +19,11 @@ public class PlanM {
     private String content;
     private boolean hasDone;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
