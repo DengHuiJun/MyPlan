@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/plan_item_node_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_weight="4" >
+
+        <TextView
+            android:id="@+id/plan_item_type_tv"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/plan_item_line"
+            android:text="阅读" />
+
+        <TextView
+            android:id="@+id/plan_item_content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/plan_item_type_tv"
+            android:layout_above="@+id/plan_item_line"
+            android:text="看完操作系统" />
+
+        <TextView
+            android:id="@+id/plan_item_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/plan_item_line"
+            android:text="2016年1月20日" />
+
+        <View
+            android:id="@+id/plan_item_line"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_line_cl4"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/plan_item_days_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:paddingBottom="2dp"
+            android:gravity="bottom"
+            android:text="24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="top"
+            android:paddingTop="2dp"
+            android:text="天" />
+
+    </LinearLayout>
+
+</LinearLayout>

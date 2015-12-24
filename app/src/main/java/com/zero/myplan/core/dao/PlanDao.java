@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.zero.myplan.core.dao.model.PlanM;
-import com.zero.myplan.core.dao.table.PlanT;
+import com.zero.myplan.core.model.PlanM;
+import com.zero.myplan.core.table.PlanT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +17,14 @@ public class PlanDao {
 
     private PlanDataBaseHelper mDBHelper;
 
-
     public PlanDao(Context context){
         mDBHelper = new PlanDataBaseHelper(context);
     }
 
-    public void insertPlan(String createdTime, String lastUpateTime, String doneTime, String type, String content, String hasDone){
+    public void insertPlan(String createdTime, String lastUpateTime, String doneTime, String type, String content){
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
-        String sql = "insert into t_plan(createdTime, lastUpdateTime, doneTime, type, content, hasDone) values (? ,? ,? ,? ,? ,?)";
-        db.execSQL(sql, new String[]{createdTime, lastUpateTime, doneTime, type, content, hasDone});
+        String sql = "insert into t_plan(createdTime, lastUpdateTime, doneTime, type, content) values (? ,? ,? ,? ,?)";
+        db.execSQL(sql, new String[]{createdTime, lastUpateTime, doneTime, type, content});
         db.close();
     }
 
@@ -45,7 +44,7 @@ public class PlanDao {
 
     }
 
-    public List<PlanM> getAllNotes(){
+    public List<PlanM> getAllPlans(){
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
         List<PlanM> list = new ArrayList<>();
         String sql = "select * from t_plan";
@@ -53,7 +52,7 @@ public class PlanDao {
         if(cursor.moveToFirst()){
             do {
                 PlanM plan = new PlanM();
-                plan.setId(cursor.getLong(cursor.getColumnIndex(PlanT.ID)));
+                plan.setId(cursor.getInt(cursor.getColumnIndex(PlanT.ID)));
                 plan.setCreatedTime(cursor.getLong(cursor.getColumnIndex(PlanT.CREATE_TIME)));
                 plan.setLastUpateTime(cursor.getLong(cursor.getColumnIndex(PlanT.LAST_UPDATE_TIME)));
                 plan.setDoneTime(cursor.getLong(cursor.getColumnIndex(PlanT.DONE_TIME)));
@@ -67,6 +66,5 @@ public class PlanDao {
         db.close();
         return list;
     }
-
 
 }

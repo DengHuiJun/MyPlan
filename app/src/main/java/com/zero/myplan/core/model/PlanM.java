@@ -1,4 +1,4 @@
-package com.zero.myplan.core.dao.model;
+package com.zero.myplan.core.model;
 
 /**
  * Created by zero on 15-12-18.
@@ -51,8 +51,14 @@ public class PlanM {
         this.doneTime = doneTime;
     }
 
-    public int getType() {
-        return type;
+    public String getType() {
+        switch (type) {
+            case TYPE_READ:
+                return "阅读";
+            case TYPE_TRAVEL:
+                return "旅游";
+        }
+        return "";
     }
 
     public void setType(int type) {
