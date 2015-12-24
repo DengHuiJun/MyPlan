@@ -1,4 +1,4 @@
-package com.zero.myplan.core.dao.model;
+package com.zero.myplan.core.model;
 
 /**
  * Created by zero on 15-12-18.

@@ -1,4 +1,4 @@
-package com.zero.myplan;
+package com.zero.myplan.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

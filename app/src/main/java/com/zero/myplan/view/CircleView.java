@@ -1,4 +1,4 @@
-package com.zero.myplan;
+package com.zero.myplan.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

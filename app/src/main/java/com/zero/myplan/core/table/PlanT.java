@@ -1,4 +1,4 @@
-package com.zero.myplan.core.dao.table;
+package com.zero.myplan.core.table;
 
 /**
  * Created by zero on 15-12-18.

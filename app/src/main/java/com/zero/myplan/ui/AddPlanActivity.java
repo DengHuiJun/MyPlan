@@ -1,4 +1,4 @@
-package com.zero.myplan;
+package com.zero.myplan.ui;
 
 import android.app.DatePickerDialog;
 import android.os.AsyncTask;
@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zero.myplan.R;
 import com.zero.myplan.core.dao.PlanDao;
 
 import java.text.SimpleDateFormat;

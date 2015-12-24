@@ -1,4 +1,4 @@
-package com.zero.myplan;
+package com.zero.myplan.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.zero.myplan.R;
 import com.zero.myplan.core.dao.model.PlanM;
 
 import java.text.SimpleDateFormat;

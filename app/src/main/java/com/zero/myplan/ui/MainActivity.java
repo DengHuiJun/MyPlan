@@ -1,4 +1,4 @@
-package com.zero.myplan;
+package com.zero.myplan.ui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.zero.myplan.R;
 import com.zero.myplan.core.dao.PlanDao;
 import com.zero.myplan.core.dao.model.PlanM;
 
